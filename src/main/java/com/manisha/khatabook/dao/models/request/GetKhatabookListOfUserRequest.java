@@ -5,8 +5,6 @@ import lombok.Data;
 
 @Data
 @Builder
-public class GetUserRequest {
-
+public class GetKhatabookListOfUserRequest {
     private String phoneNumber;
-    private String password;
 }

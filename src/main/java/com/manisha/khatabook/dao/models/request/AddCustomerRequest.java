@@ -3,10 +3,10 @@ package com.manisha.khatabook.dao.models.request;
 import lombok.Builder;
 import lombok.Data;
 
-@Data
 @Builder
-public class GetUserRequest {
-
+@Data
+public class AddCustomerRequest{
     private String phoneNumber;
-    private String password;
+    private String customerName;
+    private int loanAmount;
 }

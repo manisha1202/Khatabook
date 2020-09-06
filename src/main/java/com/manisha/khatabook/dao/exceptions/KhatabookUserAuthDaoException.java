@@ -1,11 +1,12 @@
 package com.manisha.khatabook.dao.exceptions;
 
-public class KhatabookUserAuthDaoException extends Exception{
+public class KhatabookUserAuthDaoException extends Exception {
 
-    public KhatabookUserAuthDaoException(String msg){
+    public KhatabookUserAuthDaoException(String msg) {
         super(msg);
     }
-    public KhatabookUserAuthDaoException(String msg, Throwable t){
-        super(msg,t);
+
+    public KhatabookUserAuthDaoException(String msg, Throwable t) {
+        super(msg, t);
     }
 }
