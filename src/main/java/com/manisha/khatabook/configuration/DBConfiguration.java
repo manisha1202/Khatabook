@@ -17,28 +17,23 @@ import java.sql.SQLException;
 public class DBConfiguration {
 
     @Bean
-    public UserAuthDao getUserDao() throws SQLException {
+    public Connection getConnection() throws SQLException {
         String url = "jdbc:mysql://localhost:3306/khatabookdb?autoReconnect=true&&useSSL=false";
         String username = "root";
         String password = "root";
-        Connection dbConn = DriverManager.getConnection(url, username, password);
+        return DriverManager.getConnection(url, username, password);
+    }
+    @Bean
+    public UserAuthDao getUserDao(Connection dbConn) {
         return new UserAuthDaoImpl(dbConn);
     }
 
     @Bean
-    public KhatabookDao getKhatabookDao() throws SQLException {
-        String url = "jdbc:mysql://localhost:3306/khatabookdb?autoReconnect=true&&useSSL=false";
-        String username = "root";
-        String password = "root";
-        Connection dbConn = DriverManager.getConnection(url, username, password);
+    public KhatabookDao getKhatabookDao(Connection dbConn) {
         return new KhatabookDaoImpl(dbConn);
     }
     @Bean
-    public CustomerDao getCustomerDao() throws SQLException {
-        String url = "jdbc:mysql://localhost:3306/khatabookdb?autoReconnect=true&&useSSL=false";
-        String username = "root";
-        String password = "root";
-        Connection dbConn = DriverManager.getConnection(url, username, password);
+    public CustomerDao getCustomerDao(Connection dbConn) {
         return new CustomerDaoImpl(dbConn);
     }
 }

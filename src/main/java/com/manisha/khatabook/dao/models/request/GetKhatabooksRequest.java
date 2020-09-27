@@ -5,6 +5,6 @@ import lombok.Data;
 
 @Data
 @Builder
-public class GetKhatabookListOfUserRequest {
+public class GetKhatabooksRequest {
     private String phoneNumber;
 }

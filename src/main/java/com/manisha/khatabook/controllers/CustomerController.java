@@ -2,6 +2,7 @@ package com.manisha.khatabook.controllers;
 
 import com.manisha.khatabook.managers.CustomerManager;
 import com.manisha.khatabook.models.Customer;
+import com.manisha.khatabook.dao.models.Khatabook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +17,16 @@ public class CustomerController {
     public void addCustomer(@RequestBody Customer customer) {
         try {
             customerManager.addCustomer(customer);
+        } catch (Exception e) {
+            System.out.println("Failed to add customer." + e.getStackTrace());
+            e.printStackTrace();
+        }
+    }
+    @CrossOrigin(origins = "http://localhost:3000")
+    @RequestMapping(value = "/customerList", method = RequestMethod.POST)
+    public void getCustomerList(@RequestBody Khatabook khatabook) {
+        try {
+            customerManager.getCustomers(khatabook);
         } catch (Exception e) {
             System.out.println("Failed to add customer." + e.getStackTrace());
             e.printStackTrace();

@@ -4,7 +4,8 @@ import lombok.Data;
 
 @Data
 public class Customer {
-    private String customer_Name;
-    private String phone_Number;
-    private int loan_amount;
+    private int khatabookId;
+    private String customerName;
+    private String phoneNumber;
+    private int loanAmount;
 }

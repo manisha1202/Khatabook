@@ -1,9 +1,6 @@
 package com.manisha.khatabook.dao.utils;
 
-import com.manisha.khatabook.dao.models.request.AddCustomerRequest;
-import com.manisha.khatabook.dao.models.request.GetKhatabookListOfUserRequest;
-import com.manisha.khatabook.dao.models.request.GetUserRequest;
-import com.manisha.khatabook.dao.models.request.SaveUserRequest;
+import com.manisha.khatabook.dao.models.request.*;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -39,22 +36,42 @@ public final class DbUtils {
     }
 
     public static void updateStatementForGetKhatabookList(PreparedStatement ps,
-                                                          GetKhatabookListOfUserRequest getKhatabookListOfUserRequest) {
+                                                          GetKhatabooksRequest getKhatabooksRequest) {
         try {
-            ps.setString(1, getKhatabookListOfUserRequest.getPhoneNumber());
+            ps.setString(1, getKhatabooksRequest.getPhoneNumber());
         } catch (SQLException e) {
             throw new IllegalArgumentException("Failed to retreive the list of khatabooks " +
                     "for the particular user.", e);
         }
     }
+
     public static void updateStatementForAddCustomer(PreparedStatement ps,
-                                                     AddCustomerRequest addCustomerRequest){
-        try{
-            ps.setString(1,addCustomerRequest.getCustomerName());
-            ps.setString(2,addCustomerRequest.getPhoneNumber());
-            ps.setInt(3,addCustomerRequest.getLoanAmount());
-        }catch (SQLException e) {
+                                                     AddCustomerRequest addCustomerRequest) {
+        try {
+            ps.setString(1, addCustomerRequest.getCustomerName());
+            ps.setString(2, addCustomerRequest.getPhoneNumber());
+            ps.setInt(3, addCustomerRequest.getLoanAmount());
+            ps.setInt(4, addCustomerRequest.getKhatabookId());
+        } catch (SQLException e) {
             throw new IllegalArgumentException("Failed to add customer.", e);
+        }
+    }
+
+    public static void updateStatementForGetCustomers(PreparedStatement ps,
+                                                      GetCustomersRequest getCustomersRequest) {
+        try {
+            ps.setString(1, getCustomersRequest.getKhatabookName());
+        } catch (SQLException e) {
+            throw new IllegalArgumentException("Failed to get customers.", e);
+        }
+    }
+
+    public static void updateStatementForGetBalance(PreparedStatement ps,
+                                                    GetBalanceRequest getBalanceRequest) {
+        try{
+            ps.setInt(1,getBalanceRequest.getKhatabookId());
+        }catch(SQLException e){
+            throw new IllegalArgumentException("Failed to get balance.",e);
         }
     }
 }

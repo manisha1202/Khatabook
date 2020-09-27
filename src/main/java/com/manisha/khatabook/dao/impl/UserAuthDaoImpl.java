@@ -28,7 +28,6 @@ public class UserAuthDaoImpl implements UserAuthDao {
             PreparedStatement preparedStmt = dbConn.prepareStatement(UserQuery.INSERT_USER);
             DbUtils.updateStatementForSaveUser(preparedStmt, saveUserRequest);
             preparedStmt.executeUpdate();
-            dbConn.close();
             System.out.println("register");
         } catch (SQLException e) {
             throw new KhatabookUserAuthDaoException("Failed to save user.", e);
@@ -43,7 +42,7 @@ public class UserAuthDaoImpl implements UserAuthDao {
             DbUtils.updateStatementForGetUser(pstmt, getUserRequest);
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
-                return ConverterUtil.GetUserResponseFromResultSet(rs);
+                return ConverterUtil.getUserResponseFromResultSet(rs);
             }
         } catch (SQLException e) {
             throw new KhatabookUserAuthDaoException("Failed to get user.", e);

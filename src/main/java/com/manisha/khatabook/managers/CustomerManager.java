@@ -2,7 +2,10 @@ package com.manisha.khatabook.managers;
 
 import com.manisha.khatabook.dao.CustomerDao;
 import com.manisha.khatabook.dao.exceptions.KhatabookCustomerDaoException;
+import com.manisha.khatabook.dao.models.Khatabook;
 import com.manisha.khatabook.dao.models.request.AddCustomerRequest;
+import com.manisha.khatabook.dao.models.request.GetCustomersRequest;
+import com.manisha.khatabook.dao.models.response.GetCustomersResponse;
 import com.manisha.khatabook.models.Customer;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +27,26 @@ public class CustomerManager {
 
     }
 
+    public GetCustomersResponse getCustomers(Khatabook khatabook){
+        GetCustomersRequest getCustomersRequest=getCustomersRequest(khatabook);
+        try{
+            return customerDao.getCustomers(getCustomersRequest);
+        }catch(KhatabookCustomerDaoException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
     private AddCustomerRequest addCustomerRequest(@NonNull Customer customer) {
-        return AddCustomerRequest.builder().customerName(customer.getCustomer_Name())
-                .phoneNumber(customer.getPhone_Number()).loanAmount(customer.getLoan_amount())
+        return AddCustomerRequest
+                .builder()
+                .customerName(customer.getCustomerName())
+                .phoneNumber(customer.getPhoneNumber())
+                .loanAmount(customer.getLoanAmount())
+                .khatabookId(customer.getKhatabookId())
                 .build();
+    }
+
+    private GetCustomersRequest getCustomersRequest(@NonNull Khatabook khatabook){
+        return GetCustomersRequest.builder().KhatabookName(khatabook.getName()).build();
     }
 }
