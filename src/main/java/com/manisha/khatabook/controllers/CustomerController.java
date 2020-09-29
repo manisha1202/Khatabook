@@ -1,5 +1,6 @@
 package com.manisha.khatabook.controllers;
 
+import com.manisha.khatabook.dao.models.response.GetCustomersResponse;
 import com.manisha.khatabook.managers.CustomerManager;
 import com.manisha.khatabook.models.Customer;
 import com.manisha.khatabook.dao.models.Khatabook;
@@ -24,12 +25,13 @@ public class CustomerController {
     }
     @CrossOrigin(origins = "http://localhost:3000")
     @RequestMapping(value = "/customerList", method = RequestMethod.POST)
-    public void getCustomerList(@RequestBody Khatabook khatabook) {
+    public GetCustomersResponse getCustomerList(@RequestBody Khatabook khatabook) {
         try {
-            customerManager.getCustomers(khatabook);
+            return customerManager.getCustomers(khatabook);
         } catch (Exception e) {
             System.out.println("Failed to add customer." + e.getStackTrace());
             e.printStackTrace();
         }
+        return null;
     }
 }

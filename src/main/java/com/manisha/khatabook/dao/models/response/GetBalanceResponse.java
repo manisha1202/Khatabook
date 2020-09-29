@@ -6,6 +6,6 @@ import lombok.Data;
 @Builder
 @Data
 public class GetBalanceResponse {
-    private int debit;
-    private int credit;
+    private double debit;
+    private double credit;
 }

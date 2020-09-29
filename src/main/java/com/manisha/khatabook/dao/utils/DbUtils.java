@@ -60,18 +60,32 @@ public final class DbUtils {
     public static void updateStatementForGetCustomers(PreparedStatement ps,
                                                       GetCustomersRequest getCustomersRequest) {
         try {
-            ps.setString(1, getCustomersRequest.getKhatabookName());
+            ps.setInt(1, getCustomersRequest.getKhatabookId());
         } catch (SQLException e) {
-            throw new IllegalArgumentException("Failed to get customers.", e);
+            throw new IllegalArgumentException("Failed to set khatabook id for get customers.", e);
         }
     }
 
     public static void updateStatementForGetBalance(PreparedStatement ps,
                                                     GetBalanceRequest getBalanceRequest) {
-        try{
-            ps.setInt(1,getBalanceRequest.getKhatabookId());
-        }catch(SQLException e){
-            throw new IllegalArgumentException("Failed to get balance.",e);
+        try {
+            ps.setInt(1, getBalanceRequest.getKhatabookId());
+        } catch (SQLException e) {
+            throw new IllegalArgumentException("Failed to get balance.", e);
+        }
+    }
+
+    public static void updateStatementForSaveTransaction(PreparedStatement ps,
+                                                         AddTransactionRequest addTransactionRequest) {
+        try {
+            ps.setDate(1, new java.sql.Date(addTransactionRequest.getDate().getTime()));
+            ps.setDouble(2, addTransactionRequest.getAmount());
+            ps.setString(3, addTransactionRequest.getType());
+            ps.setString(4, addTransactionRequest.getDescription());
+            ps.setInt(5, addTransactionRequest.getCustomerId());
+            ps.setInt(6, addTransactionRequest.getKhatabookId());
+        } catch (SQLException e) {
+            throw new IllegalArgumentException("Failed to add te transaction.", e);
         }
     }
 }

@@ -6,10 +6,12 @@ import com.manisha.khatabook.dao.exceptions.KhatabookCustomerDaoException;
 import com.manisha.khatabook.dao.models.request.AddCustomerRequest;
 import com.manisha.khatabook.dao.models.request.GetCustomersRequest;
 import com.manisha.khatabook.dao.models.response.GetCustomersResponse;
+import com.manisha.khatabook.dao.utils.ConverterUtil;
 import com.manisha.khatabook.dao.utils.DbUtils;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class CustomerDaoImpl implements CustomerDao {
@@ -25,9 +27,7 @@ public class CustomerDaoImpl implements CustomerDao {
             throws KhatabookCustomerDaoException {
         try {
             PreparedStatement preparedStmt = dbConn.prepareStatement(UserQuery.INSERT_CUSTOMER);
-//            PreparedStatement ps = dbConn.prepareStatement(UserQuery.INSERT_INTO_KHATABOOK_CUSTOMER_RELATION);
             DbUtils.updateStatementForAddCustomer(preparedStmt, addCustomerRequest);
-            //DbUtils.updateStatementForCustomerRelation(ps,);
             preparedStmt.executeUpdate();
             System.out.println("added");
         } catch (SQLException e) {
@@ -42,10 +42,10 @@ public class CustomerDaoImpl implements CustomerDao {
             PreparedStatement preparedStmt =
                     dbConn.prepareStatement(UserQuery.GET_CUSTOMERS);
             DbUtils.updateStatementForGetCustomers(preparedStmt, getCustomersRequest);
-            preparedStmt.executeUpdate();
+            ResultSet rs = preparedStmt.executeQuery();
+            return ConverterUtil.getCustomersFromResultSet(rs);
         } catch (SQLException e) {
             throw new KhatabookCustomerDaoException("Failed to add customer.", e);
         }
-        return null;
     }
 }

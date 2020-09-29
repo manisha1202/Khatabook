@@ -47,6 +47,8 @@ public class CustomerManager {
     }
 
     private GetCustomersRequest getCustomersRequest(@NonNull Khatabook khatabook){
-        return GetCustomersRequest.builder().KhatabookName(khatabook.getName()).build();
+        return GetCustomersRequest.builder()
+                .khatabookId(khatabook.getId())
+                .build();
     }
 }
