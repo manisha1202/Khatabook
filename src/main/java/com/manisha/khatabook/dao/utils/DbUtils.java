@@ -50,8 +50,9 @@ public final class DbUtils {
         try {
             ps.setString(1, addCustomerRequest.getCustomerName());
             ps.setString(2, addCustomerRequest.getPhoneNumber());
-            ps.setInt(3, addCustomerRequest.getLoanAmount());
+            ps.setDouble(3, addCustomerRequest.getAmount());
             ps.setInt(4, addCustomerRequest.getKhatabookId());
+            ps.setString(5, addCustomerRequest.getType());
         } catch (SQLException e) {
             throw new IllegalArgumentException("Failed to add customer.", e);
         }
@@ -86,6 +87,69 @@ public final class DbUtils {
             ps.setInt(6, addTransactionRequest.getKhatabookId());
         } catch (SQLException e) {
             throw new IllegalArgumentException("Failed to add te transaction.", e);
+        }
+    }
+
+    public static void updateStatementForGetCustomerAmountType(PreparedStatement psca,
+                                                               AddTransactionRequest addTransactionRequest) {
+        try {
+            psca.setInt(1, addTransactionRequest.getCustomerId());
+            psca.setInt(2, addTransactionRequest.getKhatabookId());
+        } catch (SQLException e) {
+            throw new IllegalArgumentException("Failed to get customer balance.", e);
+        }
+    }
+
+    public static void updateStatementForGetKhatabookTypeBalance(PreparedStatement psck, int id) {
+        try {
+            psck.setInt(1, id);
+        } catch (SQLException e) {
+            throw new IllegalArgumentException("Failed to get khatabook type balance.", e);
+        }
+    }
+
+    public static void updateStatementForSetCustomerAmountType(PreparedStatement psc, int id,
+                                                               double amount, String type) {
+        try {
+            psc.setDouble(1, amount);
+            psc.setString(2, type);
+            psc.setInt(3, id);
+        } catch (SQLException e) {
+            throw new IllegalArgumentException("Failed to set customer amount type.", e);
+        }
+    }
+
+    public static void updateStatementForSetKhatabookTypeBalance(PreparedStatement psk, int id,
+                                                                 double credit, double debit) {
+        try {
+            psk.setDouble(1, credit);
+            psk.setDouble(2, debit);
+            psk.setInt(3, id);
+        } catch (SQLException e) {
+            throw new IllegalArgumentException("Failed to set khatabook type balance.", e);
+        }
+    }
+
+    public static void updateStatementForSaveKhatabook(PreparedStatement ps,
+                                                       AddKhatabookRequest addKhatabookRequest) {
+        System.out.println("khatabook name: " + addKhatabookRequest.getKhatabookName());
+        try {
+            ps.setString(1, addKhatabookRequest.getKhatabookName());
+            ps.setString(2, addKhatabookRequest.getUserPhoneNumber());
+            ps.setDouble(3, addKhatabookRequest.getCredit());
+            ps.setDouble(4, addKhatabookRequest.getDebit());
+        } catch (SQLException e) {
+            throw new IllegalArgumentException("Failed to set khatabook information.", e);
+        }
+    }
+
+    public static void updateStatementForGetTransactions(PreparedStatement ps,
+                                                         GetTransactionsRequest getTransactionsRequest) {
+        try {
+            ps.setInt(1, getTransactionsRequest.getCustomerId());
+            ps.setInt(2, getTransactionsRequest.getKhatabookId());
+        } catch (SQLException e) {
+            throw new IllegalArgumentException("Failed to get transaction list.", e);
         }
     }
 }

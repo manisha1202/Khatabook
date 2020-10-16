@@ -14,6 +14,4 @@ public class Transaction {
     private double amount;
     private String type;
     private String description;
-    private int customerId;
-    private int khatabookId;
 }

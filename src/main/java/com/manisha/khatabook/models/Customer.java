@@ -9,5 +9,6 @@ public class Customer {
     private int khatabookId;
     private String customerName;
     private String phoneNumber;
-    private int loanAmount;
+    private double amount;
+    private String type;
 }

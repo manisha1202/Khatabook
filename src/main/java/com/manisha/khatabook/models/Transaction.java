@@ -9,8 +9,8 @@ import java.util.Date;
 @Builder
 public class Transaction {
     private int id;
-    private Date date;
     private double amount;
+    private Date date;
     private String type;
     private String description;
     private int customerId;

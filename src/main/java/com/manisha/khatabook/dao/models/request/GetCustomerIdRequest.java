@@ -3,12 +3,9 @@ package com.manisha.khatabook.dao.models.request;
 import lombok.Builder;
 import lombok.Data;
 
-@Builder
 @Data
-public class AddCustomerRequest{
-    private String phoneNumber;
+@Builder
+public class GetCustomerIdRequest {
     private String customerName;
-    private double amount;
     private int khatabookId;
-    private String type;
 }

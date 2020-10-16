@@ -15,6 +15,17 @@ public class KhatabookController {
     KhatabookManager khatabookManager;
 
     @CrossOrigin(origins = "http://localhost:3000")
+    @RequestMapping(value = "/addKhatabook", method = RequestMethod.POST)
+    public void addKhatabook(@RequestBody Khatabook khatabook){
+        try {
+            khatabookManager.addKhatabooks(khatabook);
+        } catch (Exception e) {
+            System.out.println("Failed to add customer." + e.getStackTrace());
+            e.printStackTrace();
+        }
+    }
+
+    @CrossOrigin(origins = "http://localhost:3000")
     @RequestMapping(value = "/khatabooks", method = RequestMethod.POST)
     public GetKhatabooksResponse getKhatabooks(@RequestBody User user) {
 

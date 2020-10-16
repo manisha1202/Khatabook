@@ -3,7 +3,9 @@ package com.manisha.khatabook.dao.impl;
 import com.manisha.khatabook.dao.CustomerDao;
 import com.manisha.khatabook.dao.constants.UserQuery;
 import com.manisha.khatabook.dao.exceptions.KhatabookCustomerDaoException;
+import com.manisha.khatabook.dao.models.TransactionDetail;
 import com.manisha.khatabook.dao.models.request.AddCustomerRequest;
+import com.manisha.khatabook.dao.models.request.AddTransactionRequest;
 import com.manisha.khatabook.dao.models.request.GetCustomersRequest;
 import com.manisha.khatabook.dao.models.response.GetCustomersResponse;
 import com.manisha.khatabook.dao.utils.ConverterUtil;
@@ -46,6 +48,21 @@ public class CustomerDaoImpl implements CustomerDao {
             return ConverterUtil.getCustomersFromResultSet(rs);
         } catch (SQLException e) {
             throw new KhatabookCustomerDaoException("Failed to add customer.", e);
+        }
+    }
+
+    @Override
+    public void updateCustomer(AddTransactionRequest addTransactionRequest,
+                               TransactionDetail transactionDetail) throws Exception {
+        try {
+            PreparedStatement preparedStatement =
+                    dbConn.prepareStatement(UserQuery.UPDATE_CUSTOMER);
+            DbUtils.updateStatementForSetCustomerAmountType(preparedStatement,
+                    addTransactionRequest.getCustomerId(), transactionDetail.getAmount(),
+                    transactionDetail.getTransactionType().toString());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 }

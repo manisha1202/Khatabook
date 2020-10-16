@@ -1,9 +1,9 @@
 package com.manisha.khatabook.controllers;
 
+import com.manisha.khatabook.dao.models.Khatabook;
 import com.manisha.khatabook.dao.models.response.GetCustomersResponse;
 import com.manisha.khatabook.managers.CustomerManager;
 import com.manisha.khatabook.models.Customer;
-import com.manisha.khatabook.dao.models.Khatabook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,6 +23,7 @@ public class CustomerController {
             e.printStackTrace();
         }
     }
+
     @CrossOrigin(origins = "http://localhost:3000")
     @RequestMapping(value = "/customerList", method = RequestMethod.POST)
     public GetCustomersResponse getCustomerList(@RequestBody Khatabook khatabook) {

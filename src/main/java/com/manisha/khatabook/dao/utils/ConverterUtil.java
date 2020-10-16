@@ -1,11 +1,9 @@
 package com.manisha.khatabook.dao.utils;
 
-import com.manisha.khatabook.dao.models.Khatabook;
-import com.manisha.khatabook.dao.models.response.GetBalanceResponse;
-import com.manisha.khatabook.dao.models.response.GetCustomersResponse;
-import com.manisha.khatabook.dao.models.response.GetKhatabooksResponse;
-import com.manisha.khatabook.dao.models.response.GetUserResponse;
 import com.manisha.khatabook.dao.models.Customer;
+import com.manisha.khatabook.dao.models.Khatabook;
+import com.manisha.khatabook.dao.models.Transaction;
+import com.manisha.khatabook.dao.models.response.*;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -56,10 +54,25 @@ public final class ConverterUtil {
         List<Customer> customerList = new ArrayList<>();
         while (resultSet.next()) {
             System.out.println(resultSet.getString("Name"));
-            Customer customer = new Customer(resultSet.getString("Name"),
-                    resultSet.getInt("Loan_Amount"));
+            Customer customer = new Customer(resultSet.getInt("Customer_Id"), resultSet.getString(
+                    "Name"),
+                    resultSet.getDouble("Amount"));
             customerList.add(customer);
         }
         return GetCustomersResponse.builder().customers(customerList).build();
     }
+
+    public static GetTransactionsResponse getTransactionsFromResultSet(ResultSet rs)
+            throws SQLException {
+        List<Transaction> transactionList = new ArrayList<>();
+        while (rs.next()) {
+//            System.out.println(rs.getString("Description"));
+            Transaction transaction = new Transaction(rs.getDate("Date"), rs.getDouble(
+                    "Amount"), rs.getString("Type"), rs.getString("Description"));
+            transactionList.add(transaction);
+        }
+        // System.out.println(transactionList.size());
+        return GetTransactionsResponse.builder().transactions(transactionList).build();
+    }
 }
+
